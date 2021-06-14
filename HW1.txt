@@ -1,0 +1,29 @@
+Name: Michael Choi
+UID: 505326393
+
+Homework #1
+
+2.71A) The program given doesn't work because it never returns a negative int even if the most significant bit in the examined byte is 1 (negative number).
+
+2.71B)
+
+int xbyte(packed_t word, int bytenum)
+{
+        int byte_examined = word << ((3 - bytenum) << 3);
+	/* Instead of moving to front, move to back */
+
+        return byte_examined >> 24;
+	/* Account for sign extension */
+}
+
+
+2.82A) False. If x were the lowest possible value (1 in the most significant bit and 0 elsewhere) and if y were one above this, then -x would cause overflow because the maximum possible value in an int is (-minimum_value - 1). This would cause -x to significantly less than -y, because y does not cause overflow and is the maximum int value.
+
+2.82B) True. Anything left shifted is the same as 2^(number of left shifts). (y+x) left shifted 4 times is the same as 16*y and 16*x. 16*y + y + 16*x - x == 17*y + 15*x, so the answer provided is correct.
+
+2.82C) False. An example of this statement being is false if we compare two 2 bit quantities: x = 10 (in bits) and y = 01 (in bits), the values 2 and 1, respectively. ~x (01) + ~y (10) + 1 = 4. However, it does not equal ~(x+y) = ~(3) = 0 which does not equal 4, so it is false.
+
+2.82D) True. The bit level manipulations are the same for left side (x-y) and right side -(y-x). Thus, when the calculation is cast as unsigned the results are the same.
+
+2.82E) True. If x is negative (most significant bit is 1), then right shifting produces a max 2 1s. This right shift may "remove" some 1s that were the 2 last bits. Left shifting back would thus then "undo" the right shift, but the potential removed 1s would remain 0s, resulting in a value less than or equal to the previous x.
+

@@ -1,0 +1,26 @@
+Michael Choi
+505326393
+
+void transpose(int *dst, int *src, int dim)
+{
+	int i, j, B, k, m;
+
+	/* Arbitrary block side length, may need to optimize depending on machine's caches */
+	B = 8;
+
+	/* Seprate into 8x8 block */
+	for (i = 0; i < dim; i += B) 
+	{
+   		 for (j = 0; j < dim; j += B)
+		{
+			/* Iterate over block, column accesses for src can now exploit cache reuse more easily */
+        		for (k = i; ((k < (i + B)) && (k < dim)); k++) 
+			{
+            			for (m = j; ((m < (j + B)) && (m < dim)); m++) 
+				{
+                			dst[k + m*dim] = src[m + k*dim];
+           			}
+        		}
+    	    	}
+	}
+}
